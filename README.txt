@@ -1,1 +1,1 @@
-CalorIA v1.4. La carga de la fotografía se realiza con FileReader y se muestra antes de ejecutar la IA. Service Worker v4 para evitar caché de versiones anteriores.
+CalorIA v1.5: prueba aislada de carga y visualización de fotografías. La IA está deliberadamente desactivada para aislar el problema.
