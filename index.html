@@ -31,7 +31,7 @@ footer{font-size:11px;color:#8a919e;text-align:center;padding:8px}
 </head>
 <body>
 <div class="app">
-<header><div class="brand">CalorIA</div><div class="sub">Estimación de calorías mediante fotografía · v1.3</div></header>
+<header><div class="brand">CalorIA</div><div class="sub">Estimación de calorías mediante fotografía · v1.4</div></header>
 <div class="card install" id="installCard"><b>Instalar en tu iPhone</b><p>En Safari: Compartir → “Añadir a pantalla de inicio”.</p></div>
 <section class="card hero"><div id="empty" class="empty">Haz una foto de tu comida o selecciona una imagen.</div><img id="preview" class="preview" alt="Fotografía de comida" style="display:none"></section>
 <section class="card">
@@ -132,31 +132,55 @@ async function getModel(){
 function prog(n,t){$("#progress").style.width=n+"%";$("#status").textContent=t}
 
 async function analyze(file){
- $("#result").classList.remove("show");
- const url=URL.createObjectURL(file);
- $("#preview").src=url;$("#preview").style.display="block";$("#empty").style.display="none";
- try{
-   prog(8,"Preparando la fotografía…");
-   const model=await getModel();
-   prog(45,"Analizando visualmente la comida…");
-   const labels=foods.map(x=>x[3]);
-   const out=await model(url,{candidate_labels:labels});
-   const best=out[0];
-   const idx=labels.indexOf(best.label);
-   const food=foods[idx]||foods[0];
-   prog(88,"Calculando la estimación…");
-   const base=food[2],portion=250,kcal=Math.round(base*portion/100);
-   $("#foodName").textContent=food[1];
-   $("#kcal").textContent=kcal;
-   $("#per100").textContent=base;
-   $("#portion").textContent=portion+" g";
-   $("#confidence").textContent="Confianza de identificación: "+Math.round(best.score*100)+"%";
-   $("#result").classList.add("show");
-   prog(100,"Análisis completado.");
- }catch(e){
-   console.error(e);
-   prog(0,"No se pudo cargar el modelo de IA. La primera carga necesita Internet; vuelve a intentarlo en unos segundos.");
- }
+  $("#result").classList.remove("show");
+  if(!file || !file.type.startsWith("image/")){
+    prog(0,"El archivo seleccionado no es una imagen.");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = async function(ev){
+    const dataUrl = ev.target.result;
+
+    // First, show the image. This step is deliberately independent of the AI.
+    $("#preview").onload = function(){
+      $("#preview").style.display="block";
+      $("#empty").style.display="none";
+    };
+    $("#preview").src = dataUrl;
+    $("#preview").style.display="block";
+    $("#empty").style.display="none";
+    prog(3,"Fotografía cargada. Preparando el análisis…");
+
+    try{
+      const model=await getModel();
+      prog(45,"Analizando visualmente la comida…");
+      const labels=foods.map(x=>x[3]);
+      const out=await model(dataUrl,{candidate_labels:labels});
+      const best=out[0];
+      const idx=labels.indexOf(best.label);
+      const food=foods[idx]||foods[0];
+      prog(88,"Calculando la estimación…");
+      const base=food[2],portion=250,kcal=Math.round(base*portion/100);
+      $("#foodName").textContent=food[1];
+      $("#kcal").textContent=kcal;
+      $("#per100").textContent=base;
+      $("#portion").textContent=portion+" g";
+      $("#confidence").textContent="Confianza de identificación: "+Math.round(best.score*100)+"%";
+      $("#result").classList.add("show");
+      prog(100,"Análisis completado.");
+    }catch(e){
+      console.error(e);
+      prog(0,"Fotografía cargada correctamente, pero la IA no ha podido ejecutarse. Detalle: "+(e?.message||"error desconocido"));
+    }
+  };
+
+  reader.onerror=function(){
+    prog(0,"No se pudo leer la fotografía seleccionada.");
+  };
+
+  reader.readAsDataURL(file);
 }
 $("#camera").addEventListener("change",e=>e.target.files[0]&&analyze(e.target.files[0]));
 $("#gallery").addEventListener("change",e=>e.target.files[0]&&analyze(e.target.files[0]));

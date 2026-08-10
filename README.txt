@@ -1,1 +1,1 @@
-CalorIA v1.3: CLIP zero-shot, etiquetas internas en inglés para mejorar compatibilidad con CLIP; interfaz y resultados en español. CPU para mayor compatibilidad; service worker v3.
+CalorIA v1.4. La carga de la fotografía se realiza con FileReader y se muestra antes de ejecutar la IA. Service Worker v4 para evitar caché de versiones anteriores.
