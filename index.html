@@ -1,174 +1,168 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#111827">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="CalorIA">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="apple-touch-icon" href="icon-180.png">
-  <title>CalorIA · Fase 1</title>
-  <style>
-    :root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#6b7280;--accent:#111827;--line:#e5e7eb;--good:#087f5b}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
-    .app{max-width:620px;margin:auto;min-height:100vh;padding:18px 16px 36px}
-    header{padding:10px 4px 18px}.brand{font-weight:800;font-size:27px;letter-spacing:-.8px}.sub{color:var(--muted);margin-top:4px;font-size:14px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 8px 28px rgba(17,24,39,.06);margin-bottom:14px}
-    .hero{padding:0;overflow:hidden}.preview{width:100%;aspect-ratio:4/3;object-fit:cover;background:#e9edf3;display:block}.empty{aspect-ratio:4/3;display:grid;place-items:center;color:var(--muted);padding:40px;text-align:center}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{border:0;border-radius:15px;padding:14px 12px;font-size:15px;font-weight:700;cursor:pointer}.primary{background:var(--accent);color:#fff}.secondary{background:#eef1f5;color:var(--text)}
-    input[type=file]{display:none}.status{font-size:14px;color:var(--muted);margin-top:12px;min-height:20px}.bar{height:8px;background:#edf0f4;border-radius:99px;overflow:hidden;margin-top:8px}.bar>span{display:block;height:100%;width:0;background:#111827;transition:width .25s}
-    .result{display:none}.result.show{display:block}.kcal{font-size:48px;font-weight:850;letter-spacing:-2px}.unit{font-size:18px;color:var(--muted);font-weight:600}.food{font-size:21px;font-weight:800;margin:3px 0 12px;text-transform:capitalize}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#f7f8fa;border-radius:15px;padding:12px}.metric small{display:block;color:var(--muted);font-size:12px}.metric b{font-size:18px}.note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:14px}.confidence{font-size:13px;color:var(--good);font-weight:700}
-    .install{display:none;background:#111827;color:#fff}.install b{display:block;margin-bottom:6px}.install p{margin:0;color:#d1d5db;font-size:13px;line-height:1.45}
-    footer{font-size:11px;color:#8a919e;text-align:center;padding:8px}
-    @media(min-width:700px){.app{padding-top:36px}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CalorIA">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>CalorIA</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#6b7280;--accent:#111827;--line:#e5e7eb}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+.app{max-width:620px;margin:auto;min-height:100vh;padding:18px 16px 36px}header{padding:10px 4px 18px}
+.brand{font-weight:800;font-size:27px;letter-spacing:-.8px}.sub{color:var(--muted);margin-top:4px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 8px 28px rgba(17,24,39,.06);margin-bottom:14px}
+.hero{padding:0;overflow:hidden}.preview{width:100%;aspect-ratio:4/3;object-fit:cover;background:#e9edf3;display:block}
+.empty{aspect-ratio:4/3;display:grid;place-items:center;color:var(--muted);padding:40px;text-align:center}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{border:0;border-radius:15px;padding:14px 12px;font-size:15px;font-weight:700;cursor:pointer}
+.primary{background:var(--accent);color:#fff}.secondary{background:#eef1f5;color:var(--text)}input[type=file]{display:none}
+.status{font-size:14px;color:var(--muted);margin-top:12px;min-height:20px}.bar{height:8px;background:#edf0f4;border-radius:99px;overflow:hidden;margin-top:8px}.bar>span{display:block;height:100%;width:0;background:#111827;transition:width .25s}
+.result{display:none}.result.show{display:block}.kcal{font-size:48px;font-weight:850;letter-spacing:-2px}.unit{font-size:18px;color:var(--muted);font-weight:600}
+.food{font-size:21px;font-weight:800;margin:3px 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric{background:#f7f8fa;border-radius:15px;padding:12px}.metric small{display:block;color:var(--muted);font-size:12px}.metric b{font-size:18px}
+.conf{font-size:13px;font-weight:700;margin-top:8px}.note{font-size:12px;color:var(--muted);line-height:1.45;margin-top:14px}
+.install{display:none;background:#111827;color:#fff}.install b{display:block;margin-bottom:6px}.install p{margin:0;color:#d1d5db;font-size:13px;line-height:1.45}
+footer{font-size:11px;color:#8a919e;text-align:center;padding:8px}
+</style>
 </head>
 <body>
 <div class="app">
-  <header><div class="brand">CalorIA</div><div class="sub">Estimación de calorías a partir de una fotografía · Fase 1</div></header>
-
-  <div class="card install" id="installCard">
-    <b>Instalar en tu iPhone</b>
-    <p>En Safari: toca Compartir → “Añadir a pantalla de inicio”. La aplicación quedará como una APP.</p>
-  </div>
-
-  <section class="card hero">
-    <div id="empty" class="empty">Haz una foto de tu comida o selecciona una imagen de la galería.</div>
-    <img id="preview" class="preview" alt="Fotografía de comida" style="display:none">
-  </section>
-
-  <section class="card">
-    <div class="actions">
-      <label class="btn primary" for="camera">📷 Hacer foto</label>
-      <label class="btn secondary" for="gallery">🖼️ Galería</label>
-      <input id="camera" type="file" accept="image/*" capture="environment">
-      <input id="gallery" type="file" accept="image/*">
-    </div>
-    <div class="status" id="status">La imagen se analiza en el navegador; no se envía a un servidor de IA.</div>
-    <div class="bar"><span id="progress"></span></div>
-  </section>
-
-  <section class="card result" id="result">
-    <div class="food" id="foodName">—</div>
-    <div><span class="kcal" id="kcal">—</span> <span class="unit">kcal aprox.</span></div>
-    <div class="confidence" id="confidence">—</div>
-    <div class="grid" style="margin-top:14px">
-      <div class="metric"><small>Porción estimada</small><b id="portion">—</b></div>
-      <div class="metric"><small>kcal / 100 g</small><b id="per100">—</b></div>
-    </div>
-    <div class="note">Esta primera versión identifica principalmente el alimento dominante de la imagen. La cantidad es una estimación orientativa. En la siguiente fase añadiremos platos compuestos, ingredientes y corrección manual de cantidades.</div>
-  </section>
-
-  <footer>CalorIA · Prototipo personal · Las calorías son estimaciones, no una medición nutricional exacta.</footer>
+<header><div class="brand">CalorIA</div><div class="sub">Estimación de calorías mediante fotografía</div></header>
+<div class="card install" id="installCard"><b>Instalar en tu iPhone</b><p>En Safari: Compartir → “Añadir a pantalla de inicio”.</p></div>
+<section class="card hero"><div id="empty" class="empty">Haz una foto de tu comida o selecciona una imagen.</div><img id="preview" class="preview" alt="Fotografía de comida" style="display:none"></section>
+<section class="card">
+<div class="actions">
+<label class="btn primary" for="camera">📷 Hacer foto</label>
+<label class="btn secondary" for="gallery">🖼️ Galería</label>
+<input id="camera" type="file" accept="image/*" capture="environment">
+<input id="gallery" type="file" accept="image/*">
+</div>
+<div class="status" id="status">Preparada para analizar tu comida.</div>
+<div class="bar"><span id="progress"></span></div>
+</section>
+<section class="card result" id="result">
+<div class="food" id="foodName">—</div>
+<div><span class="kcal" id="kcal">—</span> <span class="unit">kcal aprox.</span></div>
+<div class="conf" id="confidence">—</div>
+<div class="grid" style="margin-top:14px">
+<div class="metric"><small>Porción provisional</small><b id="portion">250 g</b></div>
+<div class="metric"><small>kcal / 100 g</small><b id="per100">—</b></div>
+</div>
+<div class="note">La porción de 250 g es provisional: todavía no se estima el peso real de la fotografía. Esta versión mejora la identificación visual; la estimación de cantidades y platos compuestos llegará después.</div>
+</section>
+<footer>CalorIA · Prototipo personal · Las calorías son estimaciones.</footer>
 </div>
 
 <script type="module">
-import { pipeline, env } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
+import { pipeline } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
 
-// No necesitamos servidor ni API key. Los modelos se descargan y ejecutan en el dispositivo.
-env.allowLocalModels = false;
-env.useBrowserCache = true;
+const $=s=>document.querySelector(s);
 
-const els = {
-  camera: document.querySelector('#camera'), gallery: document.querySelector('#gallery'),
-  preview: document.querySelector('#preview'), empty: document.querySelector('#empty'),
-  status: document.querySelector('#status'), progress: document.querySelector('#progress'),
-  result: document.querySelector('#result'), foodName: document.querySelector('#foodName'),
-  kcal: document.querySelector('#kcal'), confidence: document.querySelector('#confidence'),
-  portion: document.querySelector('#portion'), per100: document.querySelector('#per100')
-};
+/* Lista inicial ampliada, con especial atención a comida española. */
+const foods = [
+  ["pulpo a la gallega","Pulpo a la gallega",82],
+  ["pulpo a la plancha","Pulpo a la plancha",82],
+  ["pulpo","Pulpo",82],
+  ["paella","Paella",180],
+  ["paella de marisco","Paella de marisco",175],
+  ["tortilla de patata","Tortilla de patata",150],
+  ["croquetas","Croquetas",250],
+  ["jamón serrano","Jamón serrano",241],
+  ["gazpacho","Gazpacho",35],
+  ["salmorejo","Salmorejo",80],
+  ["patatas bravas","Patatas bravas",180],
+  ["calamares a la romana","Calamares a la romana",220],
+  ["gambas al ajillo","Gambas al ajillo",190],
+  ["bacalao","Bacalao",105],
+  ["merluza","Merluza",120],
+  ["salmón a la plancha","Salmón a la plancha",208],
+  ["pescado a la plancha","Pescado a la plancha",150],
+  ["pollo asado","Pollo asado",239],
+  ["pollo a la plancha","Pollo a la plancha",165],
+  ["pollo al curry","Pollo al curry",170],
+  ["filete de ternera","Filete de ternera",250],
+  ["hamburguesa","Hamburguesa",295],
+  ["pizza","Pizza",266],
+  ["pasta","Pasta",160],
+  ["espaguetis a la boloñesa","Espaguetis a la boloñesa",150],
+  ["espaguetis a la carbonara","Espaguetis a la carbonara",195],
+  ["lasaña","Lasaña",135],
+  ["risotto","Risotto",170],
+  ["arroz blanco","Arroz blanco",130],
+  ["arroz frito","Arroz frito",190],
+  ["patatas fritas","Patatas fritas",312],
+  ["ensalada mixta","Ensalada mixta",70],
+  ["ensalada césar","Ensalada César",165],
+  ["ensalada griega","Ensalada griega",110],
+  ["hummus","Hummus",165],
+  ["guacamole","Guacamole",150],
+  ["falafel","Falafel",330],
+  ["tacos","Tacos",190],
+  ["burrito","Burrito",190],
+  ["sándwich","Sándwich",240],
+  ["perrito caliente","Perrito caliente",290],
+  ["huevo frito","Huevo frito",196],
+  ["huevo cocido","Huevo cocido",155],
+  ["tortilla francesa","Tortilla francesa",154],
+  ["pan","Pan",265],
+  ["croissant","Croissant",406],
+  ["churros","Churros",410],
+  ["tarta de queso","Tarta de queso",320],
+  ["tarta de chocolate","Tarta de chocolate",370],
+  ["tiramisú","Tiramisú",240],
+  ["helado","Helado",207],
+  ["donut","Donut",430],
+  ["manzana","Manzana",52],
+  ["plátano","Plátano",89],
+  ["fresas","Fresas",32],
+  ["naranja","Naranja",47]
+];
 
-// Valores orientativos para una porción inicial de 250 g.
-// Se ampliarán en Fase 2 con una base nutricional.
-const kcal100 = {
-  apple_pie:265, baby_back_ribs:320, baklava:428, beef_carpaccio:120, beef_tartare:180,
-  beignets:300, bibimbap:140, bread_pudding:250, breakfast_burrito:190, bruschetta:180,
-  caesar_salad:165, cannoli:250, caprese_salad:150, carrot_cake:410, ceviche:110,
-  cheesecake:320, cheese_plate:350, chicken_curry:170, chicken_quesadilla:230,
-  chicken_wings:290, chocolate_cake:370, chocolate_mousse:300, churros:410,
-  clam_chowder:120, club_sandwich:240, crab_cakes:220, creme_brulee:330, croque_madame:240,
-  cup_cakes:360, deviled_eggs:145, donuts:430, dumplings:220, edamame:120, eggs_benedict:190,
-  escargots:110, falafel:330, filet_mignon:250, fish_and_chips:240, foie_gras:460,
-  french_fries:312, french_onion_soup:75, french_toast:230, fried_calamari:175,
-  fried_rice:190, frozen_yogurt:125, garlic_bread:350, gnocchi:160, greek_salad:110,
-  grilled_cheese_sandwich:310, grilled_salmon:208, guacamole:150, goulash:115,
-  grilled_cheese:310, hamburger:295, hot_and_sour_soup:45, hot_dog:290, huevos_rancheros:150,
-  hummus:165, ice_cream:207, lasagna:135, lobster_bisque:90, lobster_roll_sandwich:240,
-  macaroni_and_cheese:164, macarons:400, miso_soup:35, mussels:172, nachos:300,
-  omelette:154, onion_rings:320, oysters:68, pad_thai:190, paella:180, pancakes:227,
-  panna_cotta:220, peking_duck:337, pho:55, pizza:266, pork_chop:231, pork_tenderloin:143,
-  prime_rib:330, pulled_pork_sandwich:250, ramen:75, ravioli:180, red_velvet_cake:360,
-  risotto:170, samosa:260, sashimi:150, scallops:111, seaweed_salad:70, shrimp_and_grits:160,
-  spaghetti_bolognese:150, spaghetti_carbonara:195, spring_rolls:150, steak:250,
-  strawberry_shortcake:260, sushi:140, tacos:190, takoyaki:180, tiramisu:240,
-  tuna_tartare:140, waffles:290
-};
-
-const pretty = s => s.replaceAll('_',' ');
-let classifierPromise = null;
-
-async function getClassifier() {
-  if (!classifierPromise) {
-    classifierPromise = pipeline(
-      'image-classification',
-      'onnx-community/swin-finetuned-food101-ONNX',
-      { device: 'webgpu' }
-    ).catch(async () => pipeline(
-      'image-classification',
-      'onnx-community/swin-finetuned-food101-ONNX'
-    ));
-  }
-  return classifierPromise;
+let modelPromise=null;
+async function getModel(){
+ if(!modelPromise){
+   modelPromise=pipeline("zero-shot-image-classification","Xenova/clip-vit-base-patch32",{device:"webgpu"})
+     .catch(()=>pipeline("zero-shot-image-classification","Xenova/clip-vit-base-patch32"));
+ }
+ return modelPromise;
 }
+function prog(n,t){$("#progress").style.width=n+"%";$("#status").textContent=t}
 
-function showProgress(p, msg) {
-  els.progress.style.width = `${p}%`;
-  els.status.textContent = msg;
+async function analyze(file){
+ $("#result").classList.remove("show");
+ const url=URL.createObjectURL(file);
+ $("#preview").src=url;$("#preview").style.display="block";$("#empty").style.display="none";
+ try{
+   prog(8,"Preparando la fotografía…");
+   const model=await getModel();
+   prog(45,"Analizando visualmente la comida…");
+   const labels=foods.map(x=>`una fotografía de ${x[0]}`);
+   const out=await model(url,{candidate_labels:labels});
+   const best=out[0];
+   const idx=labels.indexOf(best.label);
+   const food=foods[idx]||foods[0];
+   prog(88,"Calculando la estimación…");
+   const base=food[2],portion=250,kcal=Math.round(base*portion/100);
+   $("#foodName").textContent=food[1];
+   $("#kcal").textContent=kcal;
+   $("#per100").textContent=base;
+   $("#portion").textContent=portion+" g";
+   $("#confidence").textContent="Confianza de identificación: "+Math.round(best.score*100)+"%";
+   $("#result").classList.add("show");
+   prog(100,"Análisis completado.");
+ }catch(e){
+   console.error(e);
+   prog(0,"No se pudo ejecutar la IA. Comprueba la conexión a Internet y vuelve a intentarlo.");
+ }
 }
-
-async function analyze(file) {
-  els.result.classList.remove('show');
-  const url = URL.createObjectURL(file);
-  els.preview.src = url; els.preview.style.display='block'; els.empty.style.display='none';
-
-  try {
-    showProgress(10, 'Preparando la fotografía…');
-    const classifier = await getClassifier();
-    showProgress(45, 'Analizando el plato…');
-    const out = await classifier(url, { topk: 5 });
-    showProgress(90, 'Calculando la estimación…');
-
-    const best = out[0];
-    const label = best.label.toLowerCase().replaceAll(' ','_');
-    const score = best.score;
-    const base = kcal100[label] ?? 180;
-    const portion = 250;
-    const kcal = Math.round(base * portion / 100);
-
-    els.foodName.textContent = pretty(best.label);
-    els.kcal.textContent = kcal;
-    els.portion.textContent = `${portion} g`;
-    els.per100.textContent = `${base}`;
-    els.confidence.textContent = `Confianza de identificación: ${Math.round(score*100)}%`;
-    els.result.classList.add('show');
-    showProgress(100, 'Análisis completado.');
-  } catch (e) {
-    console.error(e);
-    showProgress(0, 'No se pudo ejecutar el modelo. Comprueba la conexión a Internet y vuelve a intentarlo.');
-  }
-}
-
-els.camera.addEventListener('change', e => e.target.files[0] && analyze(e.target.files[0]));
-els.gallery.addEventListener('change', e => e.target.files[0] && analyze(e.target.files[0]));
-
-if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-  document.querySelector('#installCard').style.display='none';
-} else {
-  document.querySelector('#installCard').style.display='block';
-}
+$("#camera").addEventListener("change",e=>e.target.files[0]&&analyze(e.target.files[0]));
+$("#gallery").addEventListener("change",e=>e.target.files[0]&&analyze(e.target.files[0]));
+if(window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone)$("#installCard").style.display="none";else $("#installCard").style.display="block";
 </script>
+<script>if("serviceWorker"in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script>
 </body>
 </html>
-<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{});}</script>
